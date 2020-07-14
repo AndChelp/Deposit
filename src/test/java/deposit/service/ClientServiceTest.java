@@ -94,7 +94,7 @@ class ClientServiceTest {
 
     @Test
     void getLegalForm() {
-        Assertions.assertThrows(ContentNotFoundException.class, () -> 
+        Assertions.assertThrows(ContentNotFoundException.class, () ->
                 clientService.getLegalForm(1));
     }
 }
