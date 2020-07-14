@@ -9,6 +9,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Контроллер для взаимодействия с банками.
+ *
+ * Доступные запросы:
+ * [GET]    /api/banks?name_contains    — non required, String, поиск по части имени
+ *                    &bik_contains     — non required, String, поиск по части БИК
+ *                    &page             — non required, Integer, номер страницы, по умолчанию 0
+ *                    &size             — non required, Integer, номер страницы, по умолчанию 0
+ *                    &sort[]           — non required, String[], сортировка по полю(-ям), по умолчанию id,desc
+ * [POST]   /api/banks (body){BankCreationDto}
+ * [PUT]    /api/banks (body){BankDto}
+ * [DELETE] /api/banks?bank_id          — required, Integer, id банка
+ */
+
 @RestController
 @RequestMapping("/api/banks")
 public class BankController {

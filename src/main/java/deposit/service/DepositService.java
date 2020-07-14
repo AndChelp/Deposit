@@ -23,6 +23,13 @@ import java.util.stream.Collectors;
 import static deposit.service.Utils.getCurrentUserId;
 import static deposit.service.Utils.getOrderList;
 
+/**
+ * Сервисный класс для работы со вкладами.
+ *
+ * Позволяет получить отфильтрованный и/или отсортированный список клиентов с помощью Criteria API,
+ * добавить новый вклад, обновить и удалить существующий.
+ */
+
 @Service
 public class DepositService {
     private final EntityManager entityManager;
@@ -101,7 +108,8 @@ public class DepositService {
     }
 
     public void deleteDeposit(int depositId) {
-        int ownerId = depositRepository.getAccountByDepositId(depositId);
+        int ownerId = depositRepository.getAccountByDepositId(depositId)
+                .orElseThrow(ContentNotFoundException::new);
         if (ownerId != getCurrentUserId())
             throw new PermissionDeniedException();
         depositRepository.disableDepositById(depositId);

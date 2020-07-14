@@ -6,10 +6,6 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 
-/**
- * Индекс.
- */
-
 @Getter
 @NoArgsConstructor
 @Entity

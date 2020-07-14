@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
 public interface DepositRepository extends JpaRepository<Deposit, Integer> {
@@ -22,6 +23,6 @@ public interface DepositRepository extends JpaRepository<Deposit, Integer> {
     void disableDepositById(int depositId);
 
     @Query("SELECT u.accountId FROM Deposit u WHERE u.id = :depositId")
-    int getAccountByDepositId(int depositId);
+    Optional<Integer> getAccountByDepositId(int depositId);
 
 }

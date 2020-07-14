@@ -16,6 +16,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+/**
+ * Конфигурация безопасности.
+ *
+ * В качестве шифрования паролей используется BCryptPasswordEncoder.
+ * Отключены HTTP авторизация и создание сессий.
+ * Все запросы, кроме "/api/public/**", выполняются с авторизацией.
+ */
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)

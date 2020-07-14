@@ -9,6 +9,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Контроллер для взаимодействия со вкладами.
+ *
+ * Доступные запросы:
+ * [GET]    /api/deposits?client_id     — non required, Integer, поиск по id клиента
+ *                       &bank_id       — non required, Integer, поиск по id банка
+ *                       &percent       — non required, Integer, поиск по процентам
+ *                       &month_period  — non required, Integer, поиск по сроке
+ *                       &page          — non required, Integer, номер страницы, по умолчанию 0
+ *                       &size          — non required, Integer, номер страницы, по умолчанию 0
+ *                       &sort[]        — non required, String[], сортировка по полю(-ям), по умолчанию id,desc
+ * [POST]   /api/deposits (body){DepositCreationDto}
+ * [PUT]    /api/deposits (body){DepositDto}
+ * [DELETE] /api/deposits?{deposit_id}  — required, Integer, id вклада
+ */
+
 @RestController
 @RequestMapping("/api/deposits")
 public class DepositController {

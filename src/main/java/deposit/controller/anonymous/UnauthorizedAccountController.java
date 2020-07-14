@@ -17,6 +17,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
+/**
+ * Публичный контроллер для авторизации и регистрации.
+ *
+ * Доступные запросы:
+ * [POST]   /api/public/account/login (body){LoginDto}
+ * [POST]   /api/public/account/register (body){RegisterDto}
+ */
+
 @RestController
 @RequestMapping("/api/public/account")
 public class UnauthorizedAccountController {
@@ -32,16 +42,18 @@ public class UnauthorizedAccountController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<JwtDto> login(@RequestBody LoginDto loginDto) {
+    public ResponseEntity<JwtDto> login(@Valid @RequestBody LoginDto loginDto) {
         return new ResponseEntity<>(
+                //При успешной авторизации возвращает токен, иначе ошибка авторизации
                 new JwtDto(jwtAuthentication(loginDto.getUsername(), loginDto.getPassword())),
                 HttpStatus.OK);
     }
 
     @PostMapping("/register")
-    public ResponseEntity<JwtDto> registerUser(@RequestBody RegisterDto registerDto) {
+    public ResponseEntity<JwtDto> registerUser(@Valid @RequestBody RegisterDto registerDto) {
         accountService.registerNewUser(registerDto);
         return new ResponseEntity<>(
+                //При успешной авторизации возвращает токен, иначе ошибка регистрации
                 new JwtDto(jwtAuthentication(registerDto.getUsername(), registerDto.getPassword())),
                 HttpStatus.CREATED);
     }

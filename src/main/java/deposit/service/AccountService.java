@@ -14,6 +14,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+/**
+ * Сервисный класс для работы с аккаунтами.
+ *
+ * Также реализует интерфейс UserDetailsService для поддержки Security.
+ * Позволяет получить пользователя по Username, зарегистрировать нового и сменить пароль.
+ */
+
 @Service
 public class AccountService implements UserDetailsService {
     private final AccountRepository accountRepository;
@@ -38,11 +45,11 @@ public class AccountService implements UserDetailsService {
         boolean usernameExists = accountRepository.existsByUsername(username);
         boolean emailExists = accountRepository.existsByEmail(email);
         if (usernameExists && emailExists)
-            throw new UsernameAndEmailAlreadyExistException("Username=" + username + " and email=" + email + " already exist");
+            throw new UsernameAndEmailAlreadyExistException();
         else if (usernameExists)
-            throw new UsernameAlreadyExistsException("Username=" + username + " already exists");
+            throw new UsernameAlreadyExistsException();
         else if (emailExists)
-            throw new EmailAlreadyExistsException("Email=" + email + " already exists");
+            throw new EmailAlreadyExistsException();
         Account account = new Account();
         account.setUsername(registerDto.getUsername());
         account.setEmail(registerDto.getEmail());
@@ -54,9 +61,19 @@ public class AccountService implements UserDetailsService {
         JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         String currentPassword = jwtUser.getPassword();
         if (changePasswordDto.getOldPassword().equals(changePasswordDto.getNewPassword()))
-            throw new OldAndNewPasswordEqualException("Старый и новый пароль не могут совпадать");
+            throw new OldAndNewPasswordEqualException();
         if (!passwordEncoder.matches(changePasswordDto.getOldPassword(), currentPassword))
-            throw new InvalidPasswordException("Старый пароль некорректен");
+            throw new InvalidPasswordException();
         accountRepository.updatePassword(jwtUser.getId(), passwordEncoder.encode(changePasswordDto.getNewPassword()));
     }
 }
+
+
+
+
+
+
+
+
+
+

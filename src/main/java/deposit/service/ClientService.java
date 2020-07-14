@@ -27,6 +27,13 @@ import java.util.stream.Collectors;
 import static deposit.service.Utils.getCurrentUserId;
 import static deposit.service.Utils.getOrderList;
 
+/**
+ * Сервисный класс для работы с клиентами.
+ *
+ * Позволяет получить отфильтрованный и/или отсортированный список клиентов с помощью Criteria API,
+ * добавить нового клиента, обновить и удалить существующего. Также здесь реализовано получение ОПФ.
+ */
+
 @Service
 public class ClientService {
     private final ClientRepository clientRepository;
@@ -40,7 +47,7 @@ public class ClientService {
         this.entityManager = entityManager;
     }
 
-    public PageDto getClients(String nameContains, String shortNameContains, Integer legalForm, int pageNumber, int pageSize, String[] sort) {
+    public PageDto getClients(String nameContains, String shortNameContains, Integer legalFormId, int pageNumber, int pageSize, String[] sort) {
         CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
         CriteriaQuery<Client> criteriaQuery = criteriaBuilder.createQuery(Client.class);
         Root<Client> entity = criteriaQuery.from(Client.class);
@@ -53,8 +60,8 @@ public class ClientService {
             predicateList.add(criteriaBuilder.like(entity.get("name"), "%" + nameContains + "%"));
         if (shortNameContains != null)
             predicateList.add(criteriaBuilder.like(entity.get("shortName"), "%" + shortNameContains + "%"));
-        if (legalForm != null)
-            predicateList.add(criteriaBuilder.equal(entity.get("legalForm"), legalForm));
+        if (legalFormId != null)
+            predicateList.add(criteriaBuilder.equal(entity.get("legalForm"), legalFormId));
 
         criteriaQuery.where(predicateList.toArray(new Predicate[0]));
         criteriaQuery.orderBy(getOrderList(sort, criteriaBuilder, entity));

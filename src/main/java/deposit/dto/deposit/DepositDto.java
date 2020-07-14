@@ -4,13 +4,17 @@ import deposit.entity.Deposit;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Min;
 import java.sql.Timestamp;
 
 @Getter
 @NoArgsConstructor
 public class DepositDto {
+    @Min(1)
     private int id;
+    @Min(1)
     private int clientId;
+    @Min(1)
     private int bankId;
     private Timestamp creationDate;
     private float percent;

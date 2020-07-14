@@ -9,6 +9,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Контроллер для вспомогательных операций.
+ *
+ * Доступные запросы:
+ * /api/utils/legal_forms?id    — non required, Integer, поиск по id ОПФ
+ */
+
 @RestController
 @RequestMapping("/api/utils")
 public class UtilsController {
@@ -16,12 +23,13 @@ public class UtilsController {
     private ClientService clientService;
 
     @GetMapping("/legal_forms")
-    public ResponseEntity<?> getAllLegalForms(@RequestParam(required = false) Integer id) {
-        if (id == null)
+    public ResponseEntity<?> getLegalForms(@RequestParam(required = false) Integer id) {
+
+        if (id == null) //Если id не задан, вернуть все ОПФ
             return new ResponseEntity<>(
                     clientService.getLegalForms(),
                     HttpStatus.OK);
-        else
+        else //Иначе вернуть требуемую ОПФ
             return new ResponseEntity<>(
                     clientService.getLegalForm(id),
                     HttpStatus.OK);

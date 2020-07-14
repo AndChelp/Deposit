@@ -8,6 +8,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
+/**
+ * Контроллер для управления аккаунта.
+ *
+ * Доступные запросы:
+ * [POST]   /api/account/password/change (body){ChangePasswordDto}
+ */
+
 @RestController
 @RequestMapping("/api/account")
 public class AccountController {
@@ -15,7 +24,8 @@ public class AccountController {
     private AccountService accountService;
 
     @PostMapping("/password/change")
-    public void changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
+    public void changePassword(@Valid @RequestBody ChangePasswordDto changePasswordDto) {
+        //Меняет пароль, либо выкидывает ошибку
         accountService.changePassword(changePasswordDto);
     }
 }

@@ -20,11 +20,9 @@ public class Bank {
     @Column(name = "id_account", nullable = false)
     private int accountId;
 
-    @Length(min = 2, max = 400, message = "Допустимая длина названия банка от 2 до 400 символов")
     @Column(name = "name", nullable = false, length = 400)
     private String name;
 
-    @Length(min = 9, max = 9, message = "Длина БИК должна составлять 9 символов")
     @Column(name = "bik", nullable = false, length = 9)
     private String bik;
 

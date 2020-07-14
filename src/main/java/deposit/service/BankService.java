@@ -23,9 +23,15 @@ import java.util.stream.Collectors;
 import static deposit.service.Utils.getCurrentUserId;
 import static deposit.service.Utils.getOrderList;
 
+/**
+ * Сервисный класс для работы с банками.
+ *
+ * Позволяет получить отфильтрованный и/или отсортированный список банков с помощью Criteria API,
+ * добавить новый банк, обновить и удалить существующий.
+ */
+
 @Service
 public class BankService {
-
     private final BankRepository bankRepository;
     private final EntityManager entityManager;
 

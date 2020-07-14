@@ -10,14 +10,13 @@ import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Utils {
-    static Sort.Direction getSortDirection(String direction) {
-        if (direction.equals("asc"))
-            return Sort.Direction.ASC;
-        else
-            return Sort.Direction.DESC;
-    }
+/**
+ * Вспомогательный класс.
+ *
+ * Позволяет получить список Order для сортировки запроса, а также получить Id текущего пользователя.
+ */
 
+public class Utils {
     static List<Order> getOrderList(String[] sort, CriteriaBuilder criteriaBuilder, Root<?> table) {
         List<Order> orderList = new ArrayList<>();
         if (sort[0].contains(",")) {
@@ -37,7 +36,8 @@ public class Utils {
         return orderList;
     }
 
-    static int getCurrentUserId() {
-        return ((JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getId();
+    public static int getCurrentUserId() {
+        JwtUser jwtUser = (JwtUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return jwtUser.getId();
     }
 }

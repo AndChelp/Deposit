@@ -32,11 +32,9 @@ public class Client {
     @Column(name = "id_legal_form", nullable = false)
     private int legalFormId;
 
-    @Length(min = 1, max = 400, message = "Допустимая длина наименования от 1 до 400 символов")
     @Column(name = "name", nullable = false, length = 400)
     private String name;
 
-    @Length(min = 1, max = 400, message = "Допустимая длина сокращенного наименования от 1 до 400 символов")
     @Column(name = "short_name", nullable = false, length = 400)
     private String shortName;
 

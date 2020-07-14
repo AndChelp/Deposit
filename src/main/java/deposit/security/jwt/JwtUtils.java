@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+/**
+ * Вспомогательный класс для генерации токена, получения Username из него и валидации.
+ */
+
 @Component
 public class JwtUtils {
     @Value("${jwt.token.secret}")

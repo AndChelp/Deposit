@@ -8,6 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
+/**
+ * Пользователь для работы с JWT.
+ *
+ * Убрана поддержка ролей за ненадобностью.
+ */
 @Getter
 @AllArgsConstructor
 public class JwtUser implements UserDetails {

@@ -14,6 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/**
+ * Фильтр для JWT авторизации.
+ *
+ * Проверяет наличие Authorization заголовка и валидность токена.
+ * Задает аутентификацию в контекст.
+ */
+
 public class JwtAuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private JwtUtils jwtUtils;
