@@ -1,0 +1,61 @@
+create table cities(
+  id smallserial primary key,
+  city_name varchar(400) not null
+);
+create table streets(
+  id serial primary key,
+  street_name varchar(400) not null
+);
+create table houses(
+  id serial primary key,
+  house_number varchar(400) not null
+);
+create table indexes(
+  id serial primary key,
+  index_value varchar(6) not null
+);
+create table addresses(
+  id serial primary key,
+  id_index int references indexes(id),
+  id_city int references cities(id),
+  id_street int references streets(id),
+  id_house int references houses(id)
+);
+create table legal_forms(
+  id smallserial primary key,
+  name varchar(400) not null
+);
+create table accounts(
+  id serial primary key,
+  login varchar(400) not null,
+  email varchar(400) not null,
+  password varchar(60) not null,
+  active boolean not null default true
+);
+
+create table clients(
+  id serial primary key,
+  id_address int references addresses(id),
+  id_legal_form smallint references legal_forms(id),
+  id_account int references accounts(id),
+  name varchar(400) not null,
+  short_name varchar(400) not null,
+  active boolean not null default true
+);
+create table banks(
+  id serial primary key,
+  id_account int references accounts(id),
+  name varchar(400) not null,
+  bik varchar(9) not null,
+  active boolean not null default true
+);
+create table deposits(
+  id serial primary key,
+  id_client int references clients(id),
+  id_bank int references banks(id),
+  id_account int references accounts(id),
+  creation_date timestamp not null default current_date,
+  percent real not null,
+  month_period smallint not null,
+  active boolean not null default true
+);

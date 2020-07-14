@@ -1,0 +1,4 @@
+DBMS = PostgreSQL
+database name = depo_db
+owner name = depo_admin
+owner password = depo_admin
